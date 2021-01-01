@@ -9,7 +9,4 @@ function EmailHeader() {
     )
 }
 
-const EmailHeaderStyle = styled.div`
-`
-
 export default EmailHeader
