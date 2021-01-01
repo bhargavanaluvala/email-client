@@ -5,7 +5,7 @@ import { DELETED_ITEMS } from './typeUtils'
 
 function EmailFolders(props) {
     return (
-        <FolderStyle>
+        <EmailFolderStyle>
             <table>
                 <tbody>
                     {
@@ -25,43 +25,44 @@ function EmailFolders(props) {
                         <tr>
                             <td>
                                 <InputStyle type='text' value={props.newFolderValue} onChange={e => props.onChange(e)} ></InputStyle>
-                                <Icon icon='tick' onClick={props.addFolder} />
-                                <Icon icon='cross' onClick={props.hideInputBox}/>
+                                <Icon icon='tick' intent="primary" onClick={props.addFolder} />
+                                <Icon icon='cross' intent={'danger'} onClick={props.hideInputBox}/>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-        </FolderStyle>
+        </EmailFolderStyle>
     )
 }
 
-const FolderStyle = styled.div`
+const EmailFolderStyle = styled.div`
     padding: 10px;
-    width: 200px;
-    height: 700px;
-    display: inline-block;
     background-color: #F1F1F1;
+    width: 300px;
+    height: 1000px;
 `
 
 const FolderColumnStyle = styled.td`
-    width: 200px;
     text-align: left;
     padding-left: 20px;
     cursor: pointer;
     &:hover {
         background-color: #BBD8F2
       }
+    padding-bottom: 5px;
 `
 const CustomFolderColumnStyle = styled.td`
-    width: 200px;
     text-align: left;
     padding-left: 20px;
     cursor: pointer;
 `
 
 const InputStyle = styled.input`
-    width: 100px;
+    width: 125px;
+    margin-left: 20px;
+    margin: 5px 5px 0px 20px;
+    height: 25px;
 `
 
 export default EmailFolders

@@ -4,6 +4,8 @@ import EmailFolders from './EmailFolders'
 import EmailList from './EmailList'
 import EmailBody from './EmailBody'
 import {emailFolderList, spamMails, inboxMails, INBOX, SPAM, DELETED_ITEMS} from './typeUtils'
+import styled from 'styled-components'
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 function EmailBox() {
@@ -63,7 +65,7 @@ function EmailBox() {
     }
 
     return (
-        <div>
+        <EmailBoxStyle>
             <EmailFolders 
                 emailFolders = {emailFolders} 
                 handleFolderClick = {handleFolderClick} 
@@ -77,10 +79,22 @@ function EmailBox() {
                 onChange={onChange}
                 newFolderValue={newFolderValue}
             />
-            <EmailList inboxMails={inboxMails} spamMails={spamMails} mails={mails} deletedMails={deletedMails} handleDelete={handleDelete} isDeleteBox={isDeleteBox} onMailSelect={onMailSelect}/>
+            <EmailList 
+                inboxMails={inboxMails} 
+                spamMails={spamMails} 
+                mails={mails} 
+                deletedMails={deletedMails} 
+                handleDelete={handleDelete} 
+                isDeleteBox={isDeleteBox} 
+                onMailSelect={onMailSelect}
+            />
             <EmailBody mailContent={mailContent}/>
-        </div>
+        </EmailBoxStyle>
     )
 }
-
+const EmailBoxStyle = styled.div`
+    position: absolute;
+    left: 0px;
+    display: flex;
+`
 export default EmailBox

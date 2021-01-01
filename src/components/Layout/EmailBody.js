@@ -21,15 +21,12 @@ function EmailBody(props) {
 const EmailBodyStyle = styled.div`
     padding: 10px;
     border-left: 1px solid #CCC;
-    height: 700px;
-    width: 1000px;
-    display: inline-block;
+    width: 900px;
+    height: 1000px;
 `
 const EmailBodyColumnStyle = styled.td`
     padding-top: 20px;
     padding-left: 20px;
-    height: 700px;
-    display: inline-block;
     text-align: left;
 `
 

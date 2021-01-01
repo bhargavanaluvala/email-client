@@ -5,10 +5,9 @@ import { Icon } from "@blueprintjs/core";
 function EmailList(props) {
     return (
         <EmailListStyle>
-            <div>
                 <table>
                     <tbody>
-                        {props.mails.map((val, ind) => (
+                        {props.mails.length ? props.mails.map((val, ind) => (
                             <tr key={ind} >
                                 <EmailListColumnStyle onClick={() => props.onMailSelect(ind)}>
                                     <div>{val.subject}</div>
@@ -21,35 +20,28 @@ function EmailList(props) {
                                                 </td>
 
                                 }
-                                
-                                
                             </tr>
-                        ))}
+                        )) : <FontStyle>No Emails</FontStyle>}
                     </tbody>
                 </table>
-            </div>
         </EmailListStyle>
     )
 }
 
 const EmailListStyle = styled.div`
     padding: 10px;
-    width: 500px;
     border-left: 1px solid #CCC;
-    height: 700px;
-    display: inline-block;
+    width: 500px;
+    height: 1000px;
 `
 
 const EmailListColumnStyle = styled.td`
-    width: 500px;
-    padding-top: 10px;
-    padding-bottom: 30px;
     text-align: left;
-    padding-left: 20px;
     cursor: pointer;
     font-size: 20px;
     color: #225ED1;
     border-bottom: 1px solid #CCC;
+    padding: 10px 20px 20px 20px;
 `
 
 const EmailListColumnContentStyle = styled.div`
@@ -57,8 +49,16 @@ const EmailListColumnContentStyle = styled.div`
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 400px;
     color: #000;
+    width: 400px;
+`
+
+const FontStyle = styled.div`
+    font-size: 14px;
+    position: absolute;
+    top: 45%;
+    left: 30%;
+
 `
 
 export default EmailList
