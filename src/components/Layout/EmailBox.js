@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 function EmailBox() {
     const localInboxData = sessionStorage.getItem('inboxData') ? JSON.parse(sessionStorage.getItem('inboxData')) : inboxMails
-    const localSpamData = sessionStorage.getItem('spamData')
+    const localSpamData = sessionStorage.getItem('spamData') ? JSON.parse(sessionStorage.getItem('spamData')) : spamMails
     const localDelMails = sessionStorage.getItem('deleteData') ? JSON.parse(sessionStorage.getItem('deleteData')) : []
     const [mails, setMails] = useState(localInboxData)
     const [deletedMails, setDeletedMails] = useState(localDelMails ? localDelMails : [])
@@ -51,7 +51,7 @@ function EmailBox() {
         if(folderName === INBOX) {
             setMails(localInboxData)
         } else if (folderName === SPAM) {
-            setMails(localSpamData ? JSON.parse(localSpamData) : spamMails)
+            setMails(localSpamData)
         } else if (folderName === DELETED_ITEMS) {
             setIsDeleteBox(true)
             setMails(deletedMails)
@@ -87,7 +87,7 @@ function EmailBox() {
                 handleFolderClick = {handleFolderClick} 
                 mails = {mails} 
                 inboxMails = {localInboxData}
-                spamMails = {spamMails}
+                spamMails = {localSpamData}
                 deletedMails = {deletedMails}
                 inputActive = {inputActive}
                 addFolder = {addFolder}
