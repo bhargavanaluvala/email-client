@@ -53,7 +53,7 @@ const EmailListColumnStyle = styled.td`
 `
 
 const EmailListColumnContentStyle = styled.div`
-    font-size: 10px;
+    font-size: 12px;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
