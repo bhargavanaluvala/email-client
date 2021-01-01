@@ -6,6 +6,7 @@ import { DELETED_ITEMS, INBOX, SPAM } from './typeUtils'
 function EmailFolders(props) {
     const unreadInboxMails = []
     const unreadSpamMails = []
+    console.log(props.mails)
     props.inboxMails.filter((val) => {
         if(val.unread){
             unreadInboxMails.push(val)

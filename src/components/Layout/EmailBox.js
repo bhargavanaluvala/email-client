@@ -8,8 +8,11 @@ import styled from 'styled-components'
 
 
 function EmailBox() {
-    const [mails, setMails] = useState(inboxMails)
-    const [deletedMails, setDeletedMails] = useState([])
+    const localInboxData = sessionStorage.getItem('inboxData') ? JSON.parse(sessionStorage.getItem('inboxData')) : inboxMails
+    const localSpamData = sessionStorage.getItem('spamData')
+    const localDelMails = sessionStorage.getItem('deleteData') ? JSON.parse(sessionStorage.getItem('deleteData')) : []
+    const [mails, setMails] = useState(localInboxData)
+    const [deletedMails, setDeletedMails] = useState(localDelMails ? localDelMails : [])
     const [isDeleteBox, setIsDeleteBox] = useState(false)
     const [mailContent, setMailContent] = useState([])
     const [inputActive, setInputActive] = useState(false)
@@ -19,15 +22,25 @@ function EmailBox() {
 
     const handleDelete = (index) => {
         const deletedMail = mails.splice(index, 1)
-        setDeletedMails([...deletedMails, deletedMail[0]])
+        if(folderName === INBOX) {
+            sessionStorage.setItem('inboxData', JSON.stringify(mails))
+        } else if(folderName === SPAM) {
+            sessionStorage.setItem('spamData', JSON.stringify(mails))
+        }
+        
+        const newDelArr = sessionStorage.getItem('deleteData') || '[]'
+        const localDelMails = [...JSON.parse(newDelArr), deletedMail[0]]
+        sessionStorage.setItem('deleteData', JSON.stringify(localDelMails))
+        setDeletedMails(localDelMails)
+        
     }
 
-    const showDeletedMails = () => {
-        setIsDeleteBox(true)
-        setMails(deletedMails)
-    }
-
-    const onMailSelect = (index) => {
+    const onMailSelect = (val, index) => {
+        const updatedMails = JSON.parse(JSON.stringify(mails))
+        if(updatedMails[index].unread){
+            updatedMails[index].unread = false
+            setMails(updatedMails)
+        }
         setMailContent(mails[index].content)
     }
 
@@ -36,9 +49,9 @@ function EmailBox() {
         setFolderName(folderName)
         setIsDeleteBox(false)
         if(folderName === INBOX) {
-            setMails(inboxMails)
+            setMails(localInboxData)
         } else if (folderName === SPAM) {
-            setMails(spamMails)
+            setMails(localSpamData ? JSON.parse(localSpamData) : spamMails)
         } else if (folderName === DELETED_ITEMS) {
             setIsDeleteBox(true)
             setMails(deletedMails)
@@ -73,9 +86,8 @@ function EmailBox() {
                 emailFolders = {emailFolders} 
                 handleFolderClick = {handleFolderClick} 
                 mails = {mails} 
-                inboxMails = {inboxMails}
+                inboxMails = {localInboxData}
                 spamMails = {spamMails}
-                showDeletedMails = {showDeletedMails} 
                 deletedMails = {deletedMails}
                 inputActive = {inputActive}
                 addFolder = {addFolder}

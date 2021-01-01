@@ -11,7 +11,7 @@ function EmailList(props) {
                         {props.mails.length ? props.mails.map((val, ind) => (
                             val.unread ? 
                             <tr key={ind} >
-                                <EmailListColumnStyle onClick={() => props.onMailSelect(ind)}>
+                                <EmailListColumnStyle onClick={() => props.onMailSelect(val, ind)}>
                                     {val.subject}
                                     <EmailListColumnContentStyle>{val.content}</EmailListColumnContentStyle>
                                 </EmailListColumnStyle>
@@ -24,7 +24,7 @@ function EmailList(props) {
                                 }
                             </tr> : 
                             <tr key={ind} >
-                            <EmailListReadColumnStyle onClick={() => props.onMailSelect(ind)}>
+                            <EmailListReadColumnStyle onClick={() => props.onMailSelect(val, ind)}>
                                 {val.subject}
                                 <EmailListColumnContentStyle>{val.content}</EmailListColumnContentStyle>
                             </EmailListReadColumnStyle>
