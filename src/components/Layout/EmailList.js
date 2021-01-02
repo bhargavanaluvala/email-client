@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Icon } from "@blueprintjs/core"
-import { FLAG } from './typeUtils'
+import { FLAG, DELETED_ITEMS } from './typeUtils'
 
 function EmailList(props) {
     return (
@@ -12,7 +12,7 @@ function EmailList(props) {
                         {props.mails.length ? props.mails.map((val, ind) => (
                             <tr key={ind} >
                                 {
-                                        props.folderName !== FLAG &&
+                                        (props.folderName !== FLAG && props.folderName !== DELETED_ITEMS) &&
                                         <td>
                                             <Icon icon="flag" onClick={() => props.handleFlag(val)}/>
                                         </td> 
