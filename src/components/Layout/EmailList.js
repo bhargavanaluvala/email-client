@@ -47,7 +47,6 @@ const EmailListStyle = styled.div`
     padding: 10px;
     border-left: 1px solid #CCC;
     width: 500px;
-    height: 800px;
 `
 
 const EmailListColumnStyle = styled.td`

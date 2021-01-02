@@ -22,7 +22,6 @@ const EmailBodyStyle = styled.div`
     padding: 10px;
     border-left: 1px solid #CCC;
     width: 900px;
-    height: 800px;
 `
 const EmailBodyColumnStyle = styled.td`
     padding-top: 20px;

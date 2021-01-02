@@ -67,7 +67,6 @@ const EmailFolderStyle = styled.div`
     padding: 10px;
     background-color: #F1F1F1;
     width: 300px;
-    height: 800px;
 `
 
 const FolderColumnStyle = styled.td`

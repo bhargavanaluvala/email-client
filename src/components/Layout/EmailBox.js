@@ -112,5 +112,6 @@ const EmailBoxStyle = styled.div`
     position: absolute;
     left: 0px;
     display: flex;
+    height: 100%;
 `
 export default EmailBox
