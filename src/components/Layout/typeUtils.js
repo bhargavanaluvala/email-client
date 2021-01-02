@@ -28,7 +28,8 @@ export const inboxMails = [
     }
 ]
 
-export const emailFolderList = ['Inbox', 'Spam', 'Deleted Items']
+export const emailFolderList = ['Inbox', 'Spam', 'Deleted Items', 'Flag']
 export const INBOX = emailFolderList[0]
 export const SPAM = emailFolderList[1]
 export const DELETED_ITEMS = emailFolderList[2]
+export const FLAG = emailFolderList[3]

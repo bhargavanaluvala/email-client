@@ -3,7 +3,7 @@ import { useState } from 'react'
 import EmailFolders from './EmailFolders'
 import EmailList from './EmailList'
 import EmailBody from './EmailBody'
-import {emailFolderList, spamMails, inboxMails, INBOX, SPAM, DELETED_ITEMS} from './typeUtils'
+import {emailFolderList, spamMails, inboxMails, INBOX, SPAM, DELETED_ITEMS, FLAG} from './typeUtils'
 import styled from 'styled-components'
 
 
@@ -11,6 +11,7 @@ function EmailBox() {
     const localInboxData = sessionStorage.getItem('inboxData') ? JSON.parse(sessionStorage.getItem('inboxData')) : inboxMails
     const localSpamData = sessionStorage.getItem('spamData') ? JSON.parse(sessionStorage.getItem('spamData')) : spamMails
     const localDelMails = sessionStorage.getItem('deleteData') ? JSON.parse(sessionStorage.getItem('deleteData')) : []
+    const flagMailData = sessionStorage.getItem('flagData') ? JSON.parse(sessionStorage.getItem('flagData')) : []
     const [mails, setMails] = useState(localInboxData)
     const [deletedMails, setDeletedMails] = useState(localDelMails ? localDelMails : [])
     const [isDeleteBox, setIsDeleteBox] = useState(false)
@@ -19,6 +20,7 @@ function EmailBox() {
     const [emailFolders, setEmailFolders] = useState(emailFolderList)
     const [newFolderValue, setNewFolderValue] = useState('')
     const [folderName, setFolderName] = useState('Inbox')
+    const [flagMails, setFlagMails] = useState(flagMailData ? flagMailData : [])
 
     const handleDelete = (index) => {
         const deletedMail = mails.splice(index, 1)
@@ -26,6 +28,8 @@ function EmailBox() {
             sessionStorage.setItem('inboxData', JSON.stringify(mails))
         } else if(folderName === SPAM) {
             sessionStorage.setItem('spamData', JSON.stringify(mails))
+        } else if(folderName === FLAG) {
+            sessionStorage.setItem('flagData', JSON.stringify(mails))
         }
         
         const newDelArr = sessionStorage.getItem('deleteData') || '[]'
@@ -55,6 +59,8 @@ function EmailBox() {
         } else if (folderName === DELETED_ITEMS) {
             setIsDeleteBox(true)
             setMails(deletedMails)
+        } else if (folderName === FLAG) {
+            setMails(flagMails)
         } else {
             setMails([])
         }
@@ -80,6 +86,13 @@ function EmailBox() {
         setNewFolderValue(e.target.value)
     }
 
+    const handleFlag = (val) => {
+        const flagArr = sessionStorage.getItem('flagData') || '[]'
+        const localFlagMails = [...JSON.parse(flagArr), val]
+        sessionStorage.setItem('flagData', JSON.stringify(localFlagMails))
+        setFlagMails(localFlagMails)
+    }
+
     return (
         <EmailBoxStyle>
             <EmailFolders 
@@ -103,6 +116,7 @@ function EmailBox() {
                 isDeleteBox={isDeleteBox} 
                 onMailSelect={onMailSelect}
                 folderName={folderName}
+                handleFlag={handleFlag}
             />
             <EmailBody mailContent={mailContent} />
         </EmailBoxStyle>
@@ -112,6 +126,6 @@ const EmailBoxStyle = styled.div`
     position: absolute;
     left: 0px;
     display: flex;
-    height: 100%;
+    height: 92%;
 `
 export default EmailBox

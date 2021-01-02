@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Icon } from "@blueprintjs/core";
+import { Icon } from "@blueprintjs/core"
+import { FLAG } from './typeUtils'
 
 function EmailList(props) {
     return (
@@ -10,16 +11,22 @@ function EmailList(props) {
                         <FolderNameStyle>{props.folderName}</FolderNameStyle>
                         {props.mails.length ? props.mails.map((val, ind) => (
                             <tr key={ind} >
-                                <EmailListColumnStyle style={{color: val.unread ? '#225ED1' : '#5F6A6A'}} onClick={() => props.onMailSelect(val, ind)}>
-                                <Icon icon="flag" onClick={() => props.handleFlag(val, ind)}/> {val.subject}
+                                {
+                                        props.folderName !== FLAG &&
+                                        <td>
+                                            <Icon icon="flag" onClick={() => props.handleFlag(val)}/>
+                                        </td> 
+                                }
+                                <EmailListColumnStyle style={{color: val.unread ? '#225ED1' : '#5F6A6A'}} onClick={() => props.onMailSelect(val, ind)}> 
+                                    {val.subject}
                                     <EmailListColumnContentStyle>{val.content}</EmailListColumnContentStyle>
                                 </EmailListColumnStyle>
+                                
                                 {
                                     (val.mId && !props.isDeleteBox) &&
                                     <td>
                                         <Icon icon="trash" onClick={() => props.handleDelete(ind)}/>
                                     </td>
-
                                 }
                             </tr>
                         )) : <FontStyle>No Emails</FontStyle>}
@@ -41,7 +48,7 @@ const EmailListColumnStyle = styled.td`
     font-size: 20px;
     color: #225ED1;
     border-bottom: 1px solid #CCC;
-    padding: 10px 20px 0px 20px;
+    padding: 10px 10px 0px 5px;
 `
 
 const EmailListColumnContentStyle = styled.p`
