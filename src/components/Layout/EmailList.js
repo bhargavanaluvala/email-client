@@ -9,10 +9,9 @@ function EmailList(props) {
                     <tbody>
                         <FolderNameStyle>{props.folderName}</FolderNameStyle>
                         {props.mails.length ? props.mails.map((val, ind) => (
-                            val.unread ? 
                             <tr key={ind} >
-                                <EmailListColumnStyle onClick={() => props.onMailSelect(val, ind)}>
-                                    {val.subject}
+                                <EmailListColumnStyle style={{color: val.unread ? '#225ED1' : '#5F6A6A'}} onClick={() => props.onMailSelect(val, ind)}>
+                                <Icon icon="flag" onClick={() => props.handleFlag(val, ind)}/> {val.subject}
                                     <EmailListColumnContentStyle>{val.content}</EmailListColumnContentStyle>
                                 </EmailListColumnStyle>
                                 {
@@ -22,20 +21,7 @@ function EmailList(props) {
                                     </td>
 
                                 }
-                            </tr> : 
-                            <tr key={ind} >
-                            <EmailListReadColumnStyle onClick={() => props.onMailSelect(val, ind)}>
-                                {val.subject}
-                                <EmailListColumnContentStyle>{val.content}</EmailListColumnContentStyle>
-                            </EmailListReadColumnStyle>
-                            {
-                                (val.mId && !props.isDeleteBox) &&
-                                <td>
-                                    <Icon icon="trash" onClick={() => props.handleDelete(ind)}/>
-                                </td>
-
-                            }
-                        </tr>
+                            </tr>
                         )) : <FontStyle>No Emails</FontStyle>}
                     </tbody>
                 </table>
@@ -54,14 +40,6 @@ const EmailListColumnStyle = styled.td`
     cursor: pointer;
     font-size: 20px;
     color: #225ED1;
-    border-bottom: 1px solid #CCC;
-    padding: 10px 20px 0px 20px;
-`
-const EmailListReadColumnStyle = styled.td`
-    text-align: left;
-    cursor: pointer;
-    font-size: 20px;
-    color: #5F6A6A;
     border-bottom: 1px solid #CCC;
     padding: 10px 20px 0px 20px;
 `
