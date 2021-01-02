@@ -108,6 +108,7 @@ function EmailBox() {
                 hideInputBox = {hideInputBox}
                 onChange={onChange}
                 newFolderValue={newFolderValue}
+                flagMails={flagMails}
             />
             <EmailList 
                 mails={mails} 

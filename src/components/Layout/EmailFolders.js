@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Icon } from "@blueprintjs/core"
-import { DELETED_ITEMS, INBOX, SPAM } from './typeUtils'
+import { DELETED_ITEMS, INBOX, SPAM, FLAG } from './typeUtils'
 
 function EmailFolders(props) {
     const unreadInboxMails = []
     const unreadSpamMails = []
+    const unreadFlagMails = []
     props.inboxMails.filter((val) => {
         if(val.unread){
             unreadInboxMails.push(val)
@@ -14,6 +15,11 @@ function EmailFolders(props) {
     props.spamMails.filter((val) => {
         if(val.unread){
             unreadSpamMails.push(val)
+        }
+    })
+    props.flagMails.filter((val) => {
+        if(val.unread){
+            unreadFlagMails.push(val)
         }
     })
     return (
@@ -31,7 +37,7 @@ function EmailFolders(props) {
                                     (val === DELETED_ITEMS) ? 
                                         props.deletedMails.length : (val === INBOX) ? 
                                             unreadInboxMails.length : (val === SPAM) ? 
-                                                unreadSpamMails.length : ''
+                                                unreadSpamMails.length : (val === FLAG) ? unreadFlagMails.length : ''
                                     }
                                 </td>
                             </tr>
@@ -48,10 +54,10 @@ function EmailFolders(props) {
                             <CustomFolderColumnStyle>
                                 <InputStyle type='text' placeholder='Enter a folder name' value={props.newFolderValue} onChange={e => props.onChange(e)} ></InputStyle>
                                 <IconColumnStyle>
-                                <Icon icon='tick' intent="primary" onClick={props.addFolder} />
+                                <Icon icon='tick' intent='primary' onClick={props.addFolder} />
                             </IconColumnStyle>
                             <IconColumnStyle>
-                                <Icon icon='cross' intent={'danger'} onClick={props.hideInputBox}/>
+                                <Icon icon='cross' intent='danger' onClick={props.hideInputBox}/>
                             </IconColumnStyle>
                             </CustomFolderColumnStyle>
                         </tr>
